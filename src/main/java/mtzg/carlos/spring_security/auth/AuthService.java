@@ -1,5 +1,7 @@
 package mtzg.carlos.spring_security.auth;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +13,7 @@ import mtzg.carlos.spring_security.modules.user.IUserRepository;
 import mtzg.carlos.spring_security.modules.user.Role;
 import mtzg.carlos.spring_security.modules.user.UserModel;
 import mtzg.carlos.spring_security.modules.user.dto.UserRegisterDto;
+import mtzg.carlos.spring_security.utils.Utilities;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +24,7 @@ public class AuthService {
         private final JwtService jwtService;
         private final AuthenticationManager authenticationManager;
 
-        public AuthResponse register(UserRegisterDto request) {
+        public ResponseEntity<Object> register(UserRegisterDto request) {
                 var user = UserModel.builder()
                                 .name(request.getName())
                                 .email(request.getEmail())
@@ -30,21 +33,17 @@ public class AuthService {
                                 .build();
                 userRepository.save(user);
                 var jwtToken = jwtService.generateToken(user);
-                return AuthResponse.builder()
-                                .token(jwtToken)
-                                .build();
+                return Utilities.authResponse(HttpStatus.OK, "User registered successfully", jwtToken);
         }
 
-        public AuthResponse authentication(AuthRequest request) {
+        public ResponseEntity<Object> authentication(AuthRequest request) {
                 authenticationManager.authenticate(
                                 new UsernamePasswordAuthenticationToken(
                                                 request.getEmail(),
                                                 request.getPassword()));
                 var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
                 var jwtToken = jwtService.generateToken(user);
-                return AuthResponse.builder()
-                                .token(jwtToken)
-                                .build();
+                return Utilities.authResponse(HttpStatus.OK, "User authenticated successfully", jwtToken);
         }
 
 }

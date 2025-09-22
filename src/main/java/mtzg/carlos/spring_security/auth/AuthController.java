@@ -14,15 +14,15 @@ import mtzg.carlos.spring_security.modules.user.dto.UserRegisterDto;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthService service;
+    private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody UserRegisterDto request) {
-        return ResponseEntity.ok(service.register(request));
+    public ResponseEntity<Object> register(@RequestBody UserRegisterDto request) {
+        return authService.register(request);
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthResponse> register(@RequestBody AuthRequest request) {
-        return ResponseEntity.ok(service.authentication(request));
+    public ResponseEntity<Object> authenticate(@RequestBody AuthRequest request) {
+        return authService.authentication(request);
     }
 }
