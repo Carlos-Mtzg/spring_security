@@ -1,16 +1,16 @@
 # Spring Security Demo
 
-Este proyecto es una API de ejemplo utilizando **Spring Boot 3.5.5**, **Spring Security**, JWT y MySQL. Incluye autenticación basada en tokens JWT, manejo de usuarios y validaciones.
+This project is a sample API using **Spring Boot 3.5.5**, **Spring Security**, JWT, and MySQL. It includes JWT-based authentication, user management, and validation handling.
 
-## Requisitos
+## Requirements
 
 - Java 17+
 - Maven 3.8+
 - MySQL
 
-## Configuración
+## Configuration
 
-Antes de ejecutar el proyecto, debes crear el archivo `src/main/resources/application.properties` con la siguiente estructura:
+Before running the project, you must create the `src/main/resources/application.properties` file with the following structure:
 
 ```properties
 spring.application.name=spring_security
@@ -19,8 +19,8 @@ spring.application.name=spring_security
 db.host=localhost
 db.port=3306
 db.name=spring_security
-db.username={TU_USER_AQUI}
-db.password={TU_PASSWORD_AQUI}
+db.username=root
+db.password=root
 
 # JPA
 spring.jpa.hibernate.ddl-auto=update
@@ -28,33 +28,33 @@ spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.show-sql=true
 
 # Secret Key
-jwt.secret=TU_SECRET_KEY_AQUI
+jwt.secret=YOUR_SECRET_KEY_HERE
 ```
 
-> **Nota:**  
-> Para el valor de `jwt.secret` debes generar una clave segura de 256 bits.  
-> Puedes generarla fácilmente en:  
+> **Note:**  
+> For the `jwt.secret` value, you must generate a secure 256-bit key.  
+> You can easily generate one at:  
 > [https://jwtsecrets.com/tools/encryption-key-generator](https://jwtsecrets.com/tools/encryption-key-generator)  
-> Selecciona **256 bits** y copia la clave generada en el campo correspondiente.
+> Select **256 bits** and copy the generated key into the corresponding field.
 
-## Ejecución
+## Running the Project
 
-1. Clona el repositorio.
-2. Crea la base de datos en MySQL con el nombre que definas en `db.name`.
-3. Configura el archivo `application.properties` como se indica arriba.
-4. Ejecuta el proyecto con:
+1. Clone the repository.
+2. Create the database in MySQL with the name defined in `db.name`.
+3. Configure the `application.properties` file as shown above.
+4. Run the project with:
 
 ```sh
 ./mvnw spring-boot:run
 ```
-o
+or
 ```sh
 mvn spring-boot:run
 ```
 
-## Endpoints principales
+## Main Endpoints
 
-- `/api/v1/auth/**` — Endpoints de autenticación (login, registro, etc.)
-- `/api/v1/demo/**` — Endpoints de ejemplo protegidos
+- `/api/v1/auth/**` — Authentication endpoints (login, register, etc.)
+- `/api/v1/demo/**` — Example protected endpoints
 
 ---
